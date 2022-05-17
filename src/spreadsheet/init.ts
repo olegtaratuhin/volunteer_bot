@@ -1,7 +1,8 @@
-import { HelpRequest, LogEntry } from "./model";
+import { HelpRequest, LogEntry, Config } from "./model";
 
 export const REQUESTS_SHEET = "Requests"
 export const LOGS_SHEET = "Logs"
+export const CONFIG_SHEET = "Config"
 
 function getOrCreateSheet(name: string): GoogleAppsScript.Spreadsheet.Sheet {
     const app = SpreadsheetApp.getActive()
@@ -48,4 +49,5 @@ function setupSheet(name: string, defaultHeader: Array<string>): void {
 export function setupSpreadSheet(): void {
     setupSheet(REQUESTS_SHEET, HelpRequest.header())
     setupSheet(LOGS_SHEET, LogEntry.header())
+    setupSheet(CONFIG_SHEET, Config.header())
 }

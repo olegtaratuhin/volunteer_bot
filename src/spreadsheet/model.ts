@@ -92,6 +92,22 @@ export class LogEntry {
     }
 
     public static headerMap(): Map<string, number> {
-        return getHeaderMap(HelpRequest.header())
+        return getHeaderMap(LogEntry.header())
+    }
+}
+
+
+export class Config {
+    constructor(
+        readonly donationRequisites: string,
+        readonly bringToUs: string,
+    ) {}
+
+    public static header(): Array<string> {
+        return ["Donation Requisistes", "Bring to us"]
+    }
+
+    public static headerMap(): Map<string, number> {
+        return getHeaderMap(Config.header())
     }
 }
