@@ -13,7 +13,7 @@ function getOrCreateSheet_(name: string): GoogleAppsScript.Spreadsheet.Sheet {
     return sheet
 }
 
-function getSheet_(name: string): GoogleAppsScript.Spreadsheet.Sheet {
+export function getSheet(name: string): GoogleAppsScript.Spreadsheet.Sheet {
     const app = SpreadsheetApp.getActive()
     const sheet = app.getSheetByName(name)
     if (sheet == null) {
@@ -22,7 +22,9 @@ function getSheet_(name: string): GoogleAppsScript.Spreadsheet.Sheet {
     return sheet
 }
 
-function getHeader_(sheet: GoogleAppsScript.Spreadsheet.Sheet): Array<string> | null {
+function getHeader_(
+    sheet: GoogleAppsScript.Spreadsheet.Sheet,
+): Array<string> | null {
     const ranges = sheet.getDataRange()
     const values = ranges.getValues()
     if (values.length == 0) {
@@ -49,7 +51,11 @@ function setupSheet(name: string, defaultHeader: Array<string>): void {
         return
     }
     if (Array.isArray(header) && header.length > 0) {
-        Logger.log("Remove content of sheet %s with unexpected header %s", name, header)
+        Logger.log(
+            "Remove content of sheet %s with unexpected header %s",
+            name,
+            header,
+        )
         // sheet.clearContents()
     }
     sheet.appendRow(defaultHeader)
@@ -83,7 +89,7 @@ export function getRawValuesForHeaderMap(
 
 export function readConfig(): Config {
     const data = getRawValuesForHeaderMap(
-        getSheet_(CONFIG_SHEET),
+        getSheet(CONFIG_SHEET),
         Config.headerMap(),
     )
     const config = data[0]
@@ -92,4 +98,15 @@ export function readConfig(): Config {
         config["List of needs"] as string,
         config["All info"] as string,
     )
+}
+
+export function logRequest(
+    uid: string,
+    request: string,
+    response: string,
+    name?: string,
+): void {
+    const entry = new LogEntry(uid, request, response, name)
+    let sheet = getSheet(LOGS_SHEET)
+    sheet.appendRow(entry.asRecord())
 }

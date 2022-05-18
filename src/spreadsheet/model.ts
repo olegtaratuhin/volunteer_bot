@@ -18,6 +18,10 @@ export enum RequestStatus {
     Closed = "Closed",
 }
 
+interface Record {
+    asRecord(): any[]
+}
+
 
 /**
  * Collect name -> index mapping from header.
@@ -37,7 +41,7 @@ function getHeaderMap(header: Array<string>): object {
 }
 
 
-export class HelpRequest {
+export class HelpRequest implements Record {
     date: Date
     id: string
 
@@ -66,7 +70,7 @@ export class HelpRequest {
             "Full description",
             "Personal story",
             "Language",
-            "Category",
+            "Categories",
             "Status",
             "Assignee (s)"
         ]
@@ -75,10 +79,26 @@ export class HelpRequest {
     public static headerMap(): object{
         return getHeaderMap(HelpRequest.header())
     }
+
+    public asRecord(): any[] {
+        return [
+            this.id,
+            this.date,
+            this.reporter,
+            this.contacts,
+            this.shortDescription,
+            this.fullDescription,
+            this.personalStory,
+            this.language,
+            this.categories,
+            this.status,
+            this.assignees,
+        ]
+    }
 }
 
 
-export class LogEntry {
+export class LogEntry implements Record {
     readonly date: Date
 
     constructor(
@@ -102,6 +122,16 @@ export class LogEntry {
 
     public static headerMap(): object {
         return getHeaderMap(LogEntry.header())
+    }
+
+    public asRecord(): any[] {
+        return [
+            this.date,
+            this.uid,
+            this.name,
+            this.input,
+            this.output,
+        ]
     }
 }
 
