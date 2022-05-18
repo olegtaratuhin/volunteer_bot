@@ -1,5 +1,5 @@
 import { setupTelegramIntegration } from "./telegram/init";
-import { setupSpreadSheet } from "./spreadsheet/init";
+import { setupSpreadSheet, readConfig } from "./spreadsheet/init";
 
 function main(): void {
     const botInitialized = setupTelegramIntegration()
@@ -9,4 +9,9 @@ function main(): void {
     }
 
     setupSpreadSheet()
+
+    const config = readConfig()
+    Logger.log(config.donationRequisites)
+    Logger.log(config.listOfNeeds)
+    Logger.log(config.allInfo)
 }

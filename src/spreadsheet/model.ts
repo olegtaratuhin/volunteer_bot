@@ -19,12 +19,21 @@ export enum RequestStatus {
 }
 
 
-function getHeaderMap(header: Array<string>): Map<string, number> {
-    let map = new Map<string, number>();
+/**
+ * Collect name -> index mapping from header.
+ * 
+ * Note that this function doesn't use Map as it doesn't seem to be supported
+ * well in app script.
+ * 
+ * @param header list of string names for columns
+ * @returns object with properties for each name and corresponding column index
+ */
+function getHeaderMap(header: Array<string>): object {
+    let entry = {}
     for (let i = 0; i < header.length; i++) {
-        map.set(header[i], i)
+        entry[header[i]] =  i
     }
-    return map
+    return entry
 }
 
 
@@ -63,7 +72,7 @@ export class HelpRequest {
         ]
     }
 
-    public static headerMap(): Map<string, number> {
+    public static headerMap(): object{
         return getHeaderMap(HelpRequest.header())
     }
 }
@@ -91,7 +100,7 @@ export class LogEntry {
         ]
     }
 
-    public static headerMap(): Map<string, number> {
+    public static headerMap(): object {
         return getHeaderMap(LogEntry.header())
     }
 }
@@ -100,14 +109,15 @@ export class LogEntry {
 export class Config {
     constructor(
         readonly donationRequisites: string,
-        readonly bringToUs: string,
+        readonly listOfNeeds: string,
+        readonly allInfo: string,
     ) {}
 
     public static header(): Array<string> {
-        return ["Donation Requisistes", "Bring to us"]
+        return ["Donation Requisistes", "List of needs", "All info"]
     }
 
-    public static headerMap(): Map<string, number> {
+    public static headerMap(): object {
         return getHeaderMap(Config.header())
     }
 }
