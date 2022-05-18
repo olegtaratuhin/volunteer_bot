@@ -15,4 +15,5 @@ Bot uses sheets with specific names and specific headers.
 
 1. Requests - contains data for requested items by volunteers.
 2. Logs - contains logs for all user interactions.
-
+3. Requests from form - contains raw entries from Google Forms.
+4. Config - contains static data for the bot.
