@@ -7,5 +7,8 @@ export const WEB_APP: string = "<webapp>";
 // 3. FILL IN THE ID OF YOUR SPREADSHEET
 export const SPREADSHEET: string = "<spreadsheet>";
 
-// 4. Fill in your own Telegram ID for debugging
-export const ADMIN: string | null = "<admin id>";
+// 5. FILL IN FORM ID TO COLLECT REQUESTS
+export const FORM: string = "<form>";
+
+// 4. FILL IN YOUR OWN TELEGRAM ID FOR DEBUGGING
+export const ADMIN: string = "<id>";

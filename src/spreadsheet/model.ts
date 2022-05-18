@@ -1,3 +1,10 @@
+import { getSheet } from "./utils";
+
+export const REQUESTS_SHEET = "Requests"
+export const LOGS_SHEET = "Logs"
+export const CONFIG_SHEET = "Config"
+export const FORM_SHEET = "Requests from form"
+
 export class PersonContact {
     constructor(
         readonly telegramID: string,
@@ -20,6 +27,7 @@ export enum RequestStatus {
 
 interface Record {
     asRecord(): any[]
+    save(): void
 }
 
 
@@ -32,7 +40,7 @@ interface Record {
  * @param header list of string names for columns
  * @returns object with properties for each name and corresponding column index
  */
-function getHeaderMap(header: Array<string>): object {
+export function getHeaderMap(header: Array<string>): object {
     let entry = {}
     for (let i = 0; i < header.length; i++) {
         entry[header[i]] =  i
@@ -40,6 +48,8 @@ function getHeaderMap(header: Array<string>): object {
     return entry
 }
 
+
+export const LIST_SEP = "|"
 
 export class HelpRequest implements Record {
     date: Date
@@ -57,7 +67,7 @@ export class HelpRequest implements Record {
         public assignees: Array<PersonContact> = [],
     ) {
         this.date = new Date()
-        this.id = Crypto.prototype.randomUUID()
+        this.id = Utilities.getUuid()
     }
 
     public static header(): Array<string> {
@@ -90,10 +100,15 @@ export class HelpRequest implements Record {
             this.fullDescription,
             this.personalStory,
             this.language,
-            this.categories,
+            this.categories.join(LIST_SEP),
             this.status,
-            this.assignees,
+            this.assignees.map(v => v.telegramID).join(LIST_SEP),
         ]
+    }
+
+    public save(): void {
+        const sheet = getSheet(REQUESTS_SHEET)
+        sheet.appendRow(this.asRecord())
     }
 }
 
@@ -132,6 +147,11 @@ export class LogEntry implements Record {
             this.input,
             this.output,
         ]
+    }
+
+    public save(): void {
+        const sheet = getSheet(LOGS_SHEET)
+        sheet.appendRow(this.asRecord())
     }
 }
 

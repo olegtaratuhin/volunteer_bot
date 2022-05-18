@@ -2,6 +2,7 @@ import { setupTelegramIntegration } from "./telegram/init";
 import { sendMarkdownText, sendRawText } from "./telegram/io";
 import { setupSpreadSheet, readConfig } from "./spreadsheet/init";
 import { logRequest } from "./spreadsheet/init";
+import { setUpTriggers } from "./forms/triggers";
 
 function main(): void {
     const botInitialized = setupTelegramIntegration()
@@ -11,6 +12,7 @@ function main(): void {
     }
 
     setupSpreadSheet()
+    setUpTriggers()
 }
 
 function doGet(e: GoogleAppsScript.Events.DoGet): GoogleAppsScript.HTML.HtmlOutput {
@@ -41,7 +43,8 @@ function doPost(e: GoogleAppsScript.Events.DoPost) {
         }
 
         logRequest(id, text, answer, name)
-        sendRawText(id, answer)
+        // sendRawText(id, answer)
+        sendMarkdownText(id, answer)
     } catch (e) {
         Logger.log(e)
     }
