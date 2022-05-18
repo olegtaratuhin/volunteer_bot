@@ -1,5 +1,5 @@
 import { setupTelegramIntegration } from "./telegram/init";
-import { sendRawText } from "./telegram/io";
+import { sendMarkdownText, sendRawText } from "./telegram/io";
 import { setupSpreadSheet, readConfig } from "./spreadsheet/init";
 import { logRequest } from "./spreadsheet/init";
 

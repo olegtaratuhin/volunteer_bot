@@ -1,4 +1,5 @@
 import { HelpRequest, LogEntry, Config } from "./model";
+import { SPREADSHEET } from "../secrets";
 
 export const REQUESTS_SHEET = "Requests"
 export const LOGS_SHEET = "Logs"
@@ -14,7 +15,7 @@ function getOrCreateSheet_(name: string): GoogleAppsScript.Spreadsheet.Sheet {
 }
 
 export function getSheet(name: string): GoogleAppsScript.Spreadsheet.Sheet {
-    const app = SpreadsheetApp.getActive()
+    const app = SpreadsheetApp.openById(SPREADSHEET)
     const sheet = app.getSheetByName(name)
     if (sheet == null) {
         throw new Error(`Sheet with name ${name} not found`);

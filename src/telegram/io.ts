@@ -8,6 +8,16 @@ export function sendRawText(
         `${getBotUrl()}/sendMessage?chat_id=${id}` +
         `&text=${encodeURIComponent(text)}`
     )
-    const response = UrlFetchApp.fetch(url);
-    return response;
+    return UrlFetchApp.fetch(url)
+}
+
+export function sendMarkdownText(
+    id: string,
+    md: string,
+): GoogleAppsScript.URL_Fetch.HTTPResponse {
+    const url = (
+        `${getBotUrl()}/sendMessage?chat_id=${id}` +
+        `&text=${encodeURIComponent(md)}&parse_mode=MarkdownV2`
+    )
+    return UrlFetchApp.fetch(url)
 }
