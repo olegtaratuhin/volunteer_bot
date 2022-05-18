@@ -1,5 +1,4 @@
-import { getSheet } from "../spreadsheet/utils";
-import { FORM_SHEET, HelpRequest, LIST_SEP } from "../spreadsheet/model";
+import { HelpRequest, LIST_SEP } from "../spreadsheet/model";
 import { FORM } from "../secrets";
 
 export function setUpTriggers() {
@@ -23,8 +22,6 @@ function appendWithFormatting(e: GoogleAppsScript.Events.FormsOnFormSubmit) {
             formattedResponse.push(x.getResponse())
         }
     }
-    
-    getSheet(FORM_SHEET).appendRow(formattedResponse);
 
     copyRequestOnFormSubmited(formattedResponse)
 }
