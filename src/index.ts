@@ -15,6 +15,8 @@ function main(): void {
     setUpTriggers()
 }
 
+main()
+
 function doGet(e: GoogleAppsScript.Events.DoGet): GoogleAppsScript.HTML.HtmlOutput {
     return HtmlService.createHtmlOutput("Hi there");
 }

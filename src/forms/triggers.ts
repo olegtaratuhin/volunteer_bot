@@ -3,6 +3,12 @@ import { FORM } from "../secrets";
 
 export function setUpTriggers() {
     Logger.log("Setting up trigger: %s", appendWithFormatting)
+    const form = FormApp.openById(FORM)
+    const existingTriggers = ScriptApp.getUserTriggers(form)
+    Logger.log("Existing triggers: %s", existingTriggers)
+    for (const trigger of existingTriggers) {
+        ScriptApp.deleteTrigger(trigger)
+    }
     ScriptApp.newTrigger("appendWithFormatting")
         .forForm(FormApp.openById(FORM))
         .onFormSubmit()
