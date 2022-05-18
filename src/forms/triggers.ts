@@ -1,4 +1,4 @@
-import { HelpRequest, LIST_SEP } from "../spreadsheet/model";
+import { HelpRequest, LIST_SEP, VolunteerContact } from "../spreadsheet/model";
 import { FORM } from "../secrets";
 
 export function setUpTriggers() {
@@ -44,15 +44,15 @@ const FORM_MAPPING = {
 }
 export const FORM_REQUESTS = "Requests from form"
 
-export function copyRequestOnFormSubmited(entries: string[]) {
+export function copyRequestOnFormSubmited(entries: any[]) {
     Logger.log(entries)
 
     // todo: fix this
     const newRequest = new HelpRequest(
-        entries[1],
-        entries[2],
-        entries[3],
-        entries[4],
+        new VolunteerContact(entries[1]),
+        String(entries[2]),
+        String(entries[3]),
+        String(entries[4]),
         entries[5],
         entries[6],
         entries[7],

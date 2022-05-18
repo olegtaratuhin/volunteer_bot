@@ -60,7 +60,7 @@ export class HelpRequest implements Record {
         readonly contacts: string,
         readonly shortDescription: string,
         readonly fullDescription: string,
-        readonly personalStory?: string,
+        readonly personalStory: string = "",
         readonly language: string = "RU",
         readonly categories: Array<string> = [],
         public status: RequestStatus = RequestStatus.Open,
@@ -94,7 +94,7 @@ export class HelpRequest implements Record {
         return [
             this.id,
             this.date,
-            this.reporter,
+            this.reporter.telegramID,
             this.contacts,
             this.shortDescription,
             this.fullDescription,
